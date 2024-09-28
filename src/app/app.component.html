@@ -10,6 +10,9 @@
     <div *ngIf="users.users.length === 10">
       <button (click)="loadMoreUsers()">Load More</button>
     </div>
+    <p>Search Users:</p>
+    <input type="text" [(ngModel)]="searchName" placeholder="Enter user name" style="display: block; width: 100%; margin-bottom: 10px;" (keydown.enter)="searchUsersByName()">
+    <button (click)="searchUsersByName()" style="display: block;">Search</button>
   </ng-container>
   <ng-template #noData>
     <p>Error: Manifest data not available.</p>

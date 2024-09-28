@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { ManifestService } from './manifest.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'; // Ensure this import
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HttpClientModule], // Add HttpClientModule here
+  imports: [RouterOutlet, CommonModule, HttpClientModule, FormsModule], // Add HttpClientModule here
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [ManifestService]
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   manifestData: any;
   users: any = { users: [] }; // Initialize users as an object with a users array
   currentPage = 1;
+  searchName: string = ''; // Added for search functionality
 
   constructor(private manifestService: ManifestService) {}
 
@@ -45,7 +47,21 @@ export class AppComponent implements OnInit {
   }
 
   loadMoreUsers() {
-    this.currentPage = this.users.page + 1
+    this.currentPage = this.users.page + 1;
     this.loadUsersByPage(this.currentPage);
+  }
+
+  searchUsersByName() {
+    if (this.searchName) {
+      this.manifestService.getUsersByName(this.searchName).subscribe(data => {
+        if (data && Array.isArray(data.users)) { // Check if data.users is an array
+          this.users = data; // Assign the entire response
+        } else {
+          console.error('Unexpected response structure', data);
+        }
+      });
+    } else {
+      console.error('Search name is required');
+    }
   }
 }

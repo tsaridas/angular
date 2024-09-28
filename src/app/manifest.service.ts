@@ -20,4 +20,9 @@ export class ManifestService {
     console.log("Loading page number ", page)
     return this.http.get(`${ManifestService.USERS_URL}?page=${page}`);
   }
+
+  getUsersByName(name: string): Observable<any> {
+    console.log("Searching for user with name ", name)
+    return this.http.get(`${ManifestService.USERS_URL}?search=${name}`);
+  }
 }
