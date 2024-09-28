@@ -15,19 +15,37 @@ import { HttpClientModule } from '@angular/common/http'; // Ensure this import
 export class AppComponent implements OnInit {
   title = 'src';
   manifestData: any;
+  users: any = { users: [] }; // Initialize users as an object with a users array
+  currentPage = 1;
 
   constructor(private manifestService: ManifestService) {}
-  
 
   ngOnInit(): void {
     this.manifestService.getManifest().subscribe(data => {
       this.manifestData = data;
     });
+    this.loadUsersByPage(this.currentPage);
   }
 
   refreshData() { // Add this method to call retrieveData
     this.manifestService.getManifest().subscribe((data) => {
       this.manifestData = data;
     });
+    this.loadUsersByPage(1);
+  }
+
+  loadUsersByPage(page: number) {
+    this.manifestService.getUsersByPage(page).subscribe(data => {
+      if (data && Array.isArray(data.users)) { // Check if data.users is an array
+        this.users = data; // Assign the entire response
+      } else {
+        console.error('Unexpected response structure', data);
+      }
+    });
+  }
+
+  loadMoreUsers() {
+    this.currentPage = this.users.page + 1
+    this.loadUsersByPage(this.currentPage);
   }
 }

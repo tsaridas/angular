@@ -3,6 +3,13 @@
     <p>Manifest Data:</p>
     <pre>{{ manifestData.message | json }}</pre>
     <button (click)="refreshData()">Retrieve Data Again</button>
+    <p>Users:</p>
+    <div *ngFor="let user of users.users; let i = index"> <!-- Updated here -->
+      {{ i + 1 }}. {{ user.name }} (Age: {{ user.age }}) <!-- Updated here -->
+    </div>
+    <div *ngIf="users.users.length === 10">
+      <button (click)="loadMoreUsers()">Load More</button>
+    </div>
   </ng-container>
   <ng-template #noData>
     <p>Error: Manifest data not available.</p>
