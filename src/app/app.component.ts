@@ -17,9 +17,16 @@ export class AppComponent implements OnInit {
   manifestData: any;
 
   constructor(private manifestService: ManifestService) {}
+  
 
   ngOnInit(): void {
     this.manifestService.getManifest().subscribe(data => {
+      this.manifestData = data;
+    });
+  }
+
+  refreshData() { // Add this method to call retrieveData
+    this.manifestService.getManifest().subscribe((data) => {
       this.manifestData = data;
     });
   }

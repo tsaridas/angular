@@ -16,6 +16,6 @@
       }
     },
     "forwardPorts": [4200],
-    "postCreateCommand": "npm install -g @angular/cli && npm install",
-    "remoteUser": "node"
+    "postCreateCommand": "npm install -g @angular/cli && npm install"
   }
+  

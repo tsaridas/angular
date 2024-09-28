@@ -1,6 +1,11 @@
-this is my new project
-<div *ngIf="manifestData">
-  <p>Manifest Data:</p>
-  <pre>{{ manifestData.message | json }}</pre>
+<div>
+  <ng-container *ngIf="manifestData; else noData">
+    <p>Manifest Data:</p>
+    <pre>{{ manifestData.message | json }}</pre>
+    <button (click)="refreshData()">Retrieve Data Again</button>
+  </ng-container>
+  <ng-template #noData>
+    <p>Error: Manifest data not available.</p>
+  </ng-template>
 </div>
 <router-outlet />
