@@ -1,27 +1,28 @@
-<div class="manifest-data-container">
+<div class="manifest-data-container" style="font-size: smaller;">
   <ng-container *ngIf="manifestData; else noData">
     <div class="container">
-      <h2 class="mt-4">Search Users</h2> 
+      <h2 class="mt-4" style="font-size: smaller;">Search Users</h2> 
       <div class="input-group mb-3">  
-        <input type="text" class="form-control" [(ngModel)]="searchName" placeholder="Enter user name">
-        <button class="btn btn-primary" (click)="searchUsersByName()">Search</button>
+        <input type="text" class="form-control" [(ngModel)]="searchName" (input)="searchUsersByName()" placeholder="Enter user name" style="font-size: smaller;">  <!-- {{ edit_1 }} -->
       </div>  
     </div> 
-    <h2>Manifest Data:</h2>
-    <pre class="manifest-data">{{ manifestData.message | json }}</pre>
-    <button class="refresh-data-btn btn btn-primary" (click)="refreshData()">Retrieve Data Again</button>
-    <h2>Users:</h2>
-    <div *ngFor="let user of users.users; let i = index" class="user-list-item card mb-3"> <!-- Updated here -->
+    <h2 style="font-size: smaller;">Manifest Data:</h2>
+    <pre class="manifest-data" style="font-size: smaller;">{{ manifestData.message | json }}</pre>
+    <button class="refresh-data-btn btn btn-primary" (click)="refreshData()" style="font-size: smaller;">Retrieve Data Again</button>
+    <h2 style="font-size: smaller;">Users:</h2>
+    <div *ngFor="let user of users.users; let i = index" class="user-list-item card mb-3">
       <div class="card-body">
-        <h5 class="card-title">{{ i + 1 }}. {{ user.name }} (Age: {{ user.age }})</h5>
+        <h5 class="card-title" style="font-size: smaller;">{{ i + 1 }}. {{ user.name }} (Age: {{ user.age }})</h5>
       </div>
     </div>
+    <h2 style="font-size: smaller;">Random Data:</h2>
+    <pre class="random-data" style="font-size: smaller;">{{ randomData | json }}</pre>
     <div *ngIf="users.users.length === 10" class="load-more-users">
-      <button class="load-more-btn btn btn-primary" (click)="loadMoreUsers()">Load More</button>
+      <button class="load-more-btn btn btn-primary" (click)="loadMoreUsers()" style="font-size: smaller;">Load More</button>
     </div>
   </ng-container>
   <ng-template #noData>
-    <p class="error-message">Error: Manifest data not available.</p>
+    <p class="error-message" style="font-size: smaller;">Error: Manifest data not available.</p>
   </ng-template>
 </div>
 <router-outlet />
