@@ -1,21 +1,27 @@
-<div>
+<div class="manifest-data-container">
   <ng-container *ngIf="manifestData; else noData">
-    <p>Manifest Data:</p>
-    <pre>{{ manifestData.message | json }}</pre>
-    <button (click)="refreshData()">Retrieve Data Again</button>
-    <p>Users:</p>
-    <div *ngFor="let user of users.users; let i = index"> <!-- Updated here -->
-      {{ i + 1 }}. {{ user.name }} (Age: {{ user.age }}) <!-- Updated here -->
+    <div class="container">
+      <h2 class="mt-4">Search Users</h2> 
+      <div class="input-group mb-3">  
+        <input type="text" class="form-control" [(ngModel)]="searchName" placeholder="Enter user name">
+        <button class="btn btn-primary" (click)="searchUsersByName()">Search</button>
+      </div>  
+    </div> 
+    <h2>Manifest Data:</h2>
+    <pre class="manifest-data">{{ manifestData.message | json }}</pre>
+    <button class="refresh-data-btn btn btn-primary" (click)="refreshData()">Retrieve Data Again</button>
+    <h2>Users:</h2>
+    <div *ngFor="let user of users.users; let i = index" class="user-list-item card mb-3"> <!-- Updated here -->
+      <div class="card-body">
+        <h5 class="card-title">{{ i + 1 }}. {{ user.name }} (Age: {{ user.age }})</h5>
+      </div>
     </div>
-    <div *ngIf="users.users.length === 10">
-      <button (click)="loadMoreUsers()">Load More</button>
+    <div *ngIf="users.users.length === 10" class="load-more-users">
+      <button class="load-more-btn btn btn-primary" (click)="loadMoreUsers()">Load More</button>
     </div>
-    <p>Search Users:</p>
-    <input type="text" [(ngModel)]="searchName" placeholder="Enter user name" style="display: block; width: 100%; margin-bottom: 10px;" (keydown.enter)="searchUsersByName()">
-    <button (click)="searchUsersByName()" style="display: block;">Search</button>
   </ng-container>
   <ng-template #noData>
-    <p>Error: Manifest data not available.</p>
+    <p class="error-message">Error: Manifest data not available.</p>
   </ng-template>
 </div>
 <router-outlet />
